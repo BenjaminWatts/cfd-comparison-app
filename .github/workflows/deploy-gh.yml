@@ -24,13 +24,10 @@ jobs:
           node-version: '20.x'
 
       - name: Install dependencies
-        run: npm install
+        run: npm install && npm install gh-pages
 
       - name: Export Expo Web
-        run: npx expo -p web 
+        run: npx expo export -p web 
 
-      - name: install to GitHub Pages
-        run: npm install gh-pages
-          
       - name: Deploy to github pages
         run: npx gh-pages -d dist
