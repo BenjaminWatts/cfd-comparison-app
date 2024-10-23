@@ -55,10 +55,12 @@ const PriceGraph: React.FC<{ data: LabelledPrice[] }> = (p) => {
         },
       },
     },
+    responsive: true,
+    maintainAspectRatio: false,
   };
 
   return (
-    <View style={{ maxHeight: 350 }}>
+    <View style={{ flex: 1, maxHeight: 350 }}>
       <Line data={data} options={options} />
     </View>
   );
