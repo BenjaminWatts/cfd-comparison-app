@@ -57,10 +57,3 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4  # or specify a specific version if needed
 
-      # Step 2: Download the build artifacts
-      - name: Download build artifacts
-        uses: actions/download-pages-artifact@v1
-
-      # Step 3: Deploy to GitHub Pages using the downloaded artifacts
-        with:
-          path: dist  # Adjust this if your output directory is different
