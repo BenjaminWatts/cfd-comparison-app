@@ -2,7 +2,7 @@ import { SettlementDate, SettlementDateOutput } from 'cfd-comparison/dist/models
 
 export const getInitialSd = () => {
   const now = new Date()
-  now.setDate(now.getDate() - 230)
+  now.setDate(now.getDate() - 30)
   return {
     year: now.getFullYear(),
     month: now.getMonth() + 1,
@@ -40,8 +40,6 @@ export const yesterday = (
     }
 }
 
-
-
 export const renderLocaleDate = (sd: SettlementDate) => {
     return new Date(sd.year, sd.month - 1, sd.day).toLocaleDateString()
 }
@@ -49,6 +47,14 @@ export const renderLocaleDate = (sd: SettlementDate) => {
 export const renderDate = (sd: SettlementDate) => {
   return `${sd.year}-${sd.month}-${sd.day}`
 }
+
+export const dateToSettlementDate = (date: Date): SettlementDate => {
+    return {
+        year: date.getFullYear(),
+        month: date.getMonth() + 1,
+        day: date.getDate()
+    }
+    }
 
 export const renderSettlementPeriod = (
   settlementPeriod: number

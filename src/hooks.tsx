@@ -24,9 +24,13 @@ export const useSettlementDatePrices = (
 ) => {
     const [data, setData] = React.useState<LabelledPrice[] | null>(null)
     const [loading, setLoading] = React.useState(true)
+    const [error, setError] = React.useState<Error | null>(null)
     React.useEffect(() => {
         setLoading(true)
-        fetchSd(sd).then(setData).then(() => setLoading(false)) 
+        setError(null)
+        fetchSd(sd)
+            .then(setData).then(() => setLoading(false))
+            .catch(setError)
     }, [sd])
-    return { data, loading }
+    return { data, loading, error }
 }

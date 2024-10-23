@@ -24,7 +24,31 @@
     "web": {
       "bundler": "metro",
       "output": "server",
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "./assets/images/favicon-32x32.png",
+
+      "description": "Compare the price of renewable energy (sold via CFDs) with the (gas driven) wholesale price",
+      "shortName": "Renewable vs Gas Electricity Prices",
+      "themeColor": "#000000",
+      "backgroundColor": "#ffffff",
+      "startUrl": "/",
+      "manifest": {
+        "name": "Renewable vs Gas Electricity Prices",
+        "short_name": "Renewable vs Gas Electricity Prices",
+        "description": "Compare the price of renewable energy (sold via CFDs) with the (gas driven) wholesale price",
+        "theme_color": "#000000",
+        "background_color": "#ffffff",
+        "display": "standalone",
+        "orientation": "portrait",
+        "start_url": "/",
+        "icons": [
+          {
+            "src": "./assets/images/icon.png",
+            "sizes": "192x192",
+            "type": "image/png"
+          }
+        ]
+      }
+
     },
     "plugins": [
       "expo-router"
