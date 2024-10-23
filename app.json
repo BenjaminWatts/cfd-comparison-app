@@ -25,7 +25,6 @@
       "bundler": "metro",
       "output": "server",
       "favicon": "./assets/images/favicon-32x32.png",
-
       "description": "Compare the price of renewable energy (sold via CFDs) with the (gas driven) wholesale price",
       "shortName": "Renewable vs Gas Electricity Prices",
       "themeColor": "#000000",
