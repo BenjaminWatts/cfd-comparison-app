@@ -5,7 +5,6 @@ on:
   workflow_dispatch:
 
 jobs:
-  # Build job
   build:
     runs-on: ubuntu-latest
     steps:
@@ -20,15 +19,14 @@ jobs:
         run: npm install
 
       - name: Export Expo Web
-        run: npx expo export -p web  # Adjust the output directory if needed
+        run: npx expo export --output-dir=web-build  # Ensure this is the right output directory
 
       - name: Upload build artifacts
         uses: actions/upload-pages-artifact@v1
         with:
-          path: dist  # Adjust if your Expo output directory is different
-          name: github-pages  # Ensure this matches with deploy step
+          path: web-build  # Ensure this is the correct output directory
+          name: github-pages  # This needs to match the deploy action's expectations
 
-  # Deploy job
   deploy:
     needs: build
     permissions:
