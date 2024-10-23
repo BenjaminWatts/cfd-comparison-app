@@ -3,10 +3,12 @@ import {ActivityIndicator, View, Text, Button} from 'react-native'
 import { useSettlementDatePrices } from '../hooks'
 import { SettlementDate } from 'cfd-comparison/dist/models'
 import PriceList from '../components/price-list'
-import { dateToSettlementDate, getInitialSd, toDate, tomorrow, yesterday } from '../utils'
+import { dateToSettlementDate, getEndDate, getInitialSd, toDate, tomorrow, yesterday } from '../utils'
 import PriceGraph from '../components/price-graph'
 import DatePicker from 'react-datepicker'; // Import the DatePicker
 import 'react-datepicker/dist/react-datepicker.css'; // Import the DatePicker CSS
+import { GestureHandlerRootView, PanGestureHandler } from 'react-native-gesture-handler';
+import '../index.css'
 
 const App = () => {
   const [sd, setSd] = React.useState<SettlementDate>(getInitialSd())
@@ -14,28 +16,48 @@ const App = () => {
   const nextDay = () => setSd(yesterday(sd))
   const prevDay = () => setSd(tomorrow(sd))
   return (
-    <>
+    <PanGestureHandler
+      onGestureEvent={({ nativeEvent }) => {
+        if (nativeEvent.translationX > 0) {
+          nextDay();
+        } else if (nativeEvent.translationX < 0) {
+          prevDay();
+        }
+      }}
+    >
+      <>
+      <View style={{
+        backgroundColor: 'white',
+        padding: 10
+      }}>
+        <Text>
+          Compare the average price of renewable electricity from CFD (Contract for Difference) generators with the (gas driven) conventional market index price.
+        </Text>
+      </View>
       <View style={{
         flexDirection: 'row',
-        justifyContent: 'space-around',
+        justifyContent: 'space-between',
         alignItems: 'center',
         height: 50,
         width: '100%',
+        paddingHorizontal: 20,
         backgroundColor: 'lightgrey'
       }}>
-        <Button title='<' onPress={nextDay} />
+        <Button title='<<' onPress={nextDay} />
         <DatePicker
           selected={toDate(sd)}
           dateFormat={'dd MMMM yyyy'}
+          showMonthDropdown={true}
+          showYearDropdown={true}
+          showPopperArrow={true}  // Display the arrow in the date picker popper
+          minDate={new Date(Date.UTC(2017, 0, 1))}
+          maxDate={getEndDate()}
           onChange={
-            x => x && setSd(dateToSettlementDate(x))
-          } 
+            (x) => x && setSd(dateToSettlementDate(x))
+          }
         />
-        <Button title='>' onPress={prevDay} />
+        <Button title='>>' onPress={prevDay} />
       </View>
-
-
-
 
       <ActivityIndicator animating={loading} />
 
@@ -52,8 +74,19 @@ const App = () => {
         <View style={{height: 20}}/>
         <PriceList data={data}/>
       </>}
-    </>
+      </>
+
+    </PanGestureHandler>
   )
 }
 
-export default App
+const WithGestureRootHandlerComponent: React.FC = () => {
+
+  return (
+   <GestureHandlerRootView>
+      <App />
+    </GestureHandlerRootView>
+  )
+}
+
+export default WithGestureRootHandlerComponent

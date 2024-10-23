@@ -2,6 +2,7 @@ import { SettlementDate, SettlementDateOutput } from 'cfd-comparison/dist/models
 import React from 'react'
 import { Platform } from 'react-native'
 import { augmentLabels, LabelledPrice } from './utils'
+import { set } from 'date-fns'
 
 const DOMAIN = Platform.select({
     web: ''
@@ -30,7 +31,10 @@ export const useSettlementDatePrices = (
         setError(null)
         fetchSd(sd)
             .then(setData).then(() => setLoading(false))
-            .catch(setError)
+            .catch(e => {
+                setError(e)
+                setData(null)
+            })
     }, [sd])
     return { data, loading, error }
 }

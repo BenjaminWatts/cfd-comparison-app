@@ -1,8 +1,13 @@
 import { SettlementDate, SettlementDateOutput } from 'cfd-comparison/dist/models'
 
+export const getEndDate = () => {
+    const now = new Date()
+    now.setDate(now.getDate() - 30)
+    return now
+}
+
 export const getInitialSd = () => {
-  const now = new Date()
-  now.setDate(now.getDate() - 30)
+    const now = getEndDate()
   return {
     year: now.getFullYear(),
     month: now.getMonth() + 1,
