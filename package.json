@@ -10,7 +10,8 @@
     "web": "expo start --web",
     "test": "jest --watchAll",
     "lint": "expo lint",
-    "download": "ts-node-dev scripts/download-data.ts"
+    "download": "ts-node-dev scripts/download-data.ts",
+    "build:web": "npx expo export -p web"
   },
   "jest": {
     "preset": "jest-expo"
