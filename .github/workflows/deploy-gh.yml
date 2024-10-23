@@ -29,10 +29,7 @@ jobs:
       - name: Export Expo Web
         run: npx expo export -p web 
 
-      - name: Deploy to GitHub Pages
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Use GitHub Actions token for authentication
-        run: |
-          git config --global user.email "ben@kilowatts.io"  # Set a dummy email
-          git config --global user.name "GitHub Actions Bot"  # Set a dummy name
-          npx gh-pages -d dist -r https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: dist
