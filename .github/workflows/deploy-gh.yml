@@ -9,6 +9,8 @@ jobs:
     permissions:
       pages: write
       id-token: write
+      contents: write  # This ensures the action can push changes to the repo
+
 
     environment:
       name: github-pages
