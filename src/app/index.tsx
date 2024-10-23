@@ -67,7 +67,7 @@ const App = () => {
         width: '100%',
         justifyContent: 'center',
         alignItems: 'center'
-      }}><Text>Unable to get data. Due to publishing delays from the Low Carbon Contracts Company and Elexon, data is usually only available up to about a week in the past. Sometimes we have have redacted days with data where we have found errors such as missing data.</Text></View>}
+      }}><Text>Unable to get data. Due to publishing delays from the Low Carbon Contracts Company and Elexon, data is usually only available up to about 10 days in the past. Sometimes we have have redacted days with data where we have found errors such as missing data.</Text></View>}
       {data && <PriceGraph data={data} />}
       
       {data && <>

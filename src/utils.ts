@@ -2,7 +2,7 @@ import { SettlementDate, SettlementDateOutput } from 'cfd-comparison/dist/models
 
 export const getEndDate = () => {
     const now = new Date()
-    now.setDate(now.getDate() - 30)
+    now.setDate(now.getDate() - 14)
     return now
 }
 
