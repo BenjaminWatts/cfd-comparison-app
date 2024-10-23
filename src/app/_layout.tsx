@@ -15,7 +15,7 @@ export default function RootLayout() {
     <ThemeProvider value={DefaultTheme}>
       <Stack>
         <Stack.Screen name='index' options={{
-          title: "British Renewable (CFD) vs Fossil Fuel Wholesale Prices",
+          title: "Renewable vs Gas Power Prices",
         }}/>
         <Stack.Screen name="+not-found" />
       </Stack>
