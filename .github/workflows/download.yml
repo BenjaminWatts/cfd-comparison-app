@@ -1,0 +1,49 @@
+name: Scheduled Download and Commit
+
+# Schedule the action to run daily at midnight (you can adjust the time)
+on:
+  schedule:
+    - cron: "0 0 * * *"  # Runs at midnight UTC every day
+  workflow_dispatch:  # Allow manual triggering as well
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    steps:
+      # Step 1: Check out the repository
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      # Step 2: Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16.x'
+
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # Step 4: Run your download script
+      - name: Run download script
+        run: npm run download
+
+      # Step 5: Commit and push changes if any
+      - name: Commit changes
+        run: |
+          git config --local user.name "GitHub Actions"
+          git config --local user.email "actions@github.com"
+          git add .
+          git diff-index --quiet HEAD || git commit -m "Daily data update"
+      - name: Push changes
+        uses: ad-m/github-push-action@v0.6.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: main
+      - name: Trigger deploy.yml
+        run: |
+          curl -X POST \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/${{ github.repository }}/actions/workflows/deploy.yml/dispatches \
+            -d '{"ref":"main"}'
