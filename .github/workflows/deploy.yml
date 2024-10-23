@@ -27,7 +27,7 @@ jobs:
 
       # Step 4: Build the Expo web project
       - name: Export Expo Web
-        run: npx expo export:web  # Adjust the directory if needed
+        run: npx expo export -p web  # Adjust the directory if needed
 
       # Step 5: Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
