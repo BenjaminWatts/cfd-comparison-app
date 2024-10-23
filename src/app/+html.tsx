@@ -1,10 +1,12 @@
 import { ScrollViewStyleReset } from 'expo-router/html';
 import { type PropsWithChildren } from 'react';
 
-/**
- * This file is web-only and used to configure the root HTML for every web page during static rendering.
- * The contents of this function only run in Node.js environments and do not have access to the DOM or browser APIs.
- */
+const domain = 'cfd.kilowatts.io';
+const url = `https://${domain}/`
+const image = `${url}icon.png`;
+const title = 'Renewable versus Conventional Power Prices';
+const description = 'Compare the average price of renewable electricity from renewable CFD (Contract for Difference) generators with the (gas driven) conventional market index price.';
+
 export default function Root({ children }: PropsWithChildren) {
   return (
     <html lang="en">
@@ -12,16 +14,21 @@ export default function Root({ children }: PropsWithChildren) {
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-
-        {/*
-          Disable body scrolling on web. This makes ScrollView components work closer to how they do on native.
-          However, body scrolling is often nice to have for mobile web. If you want to enable it, remove this line.
-        */}
+        <title>{title}</title>
+        <meta name="description" content={description}/>
+        <meta property="og:url" content={url}  />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:image" content={image} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta property="twitter:domain" content={domain} />
+        <meta property="twitter:url" content={url} />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content={image} />
         <ScrollViewStyleReset />
-
-        {/* Using raw CSS styles as an escape-hatch to ensure the background color never flickers in dark-mode. */}
         <style dangerouslySetInnerHTML={{ __html: responsiveBackground }} />
-        {/* Add any additional <head> elements that you want globally available on web... */}
       </head>
       <body>{children}</body>
     </html>
