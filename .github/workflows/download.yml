@@ -9,6 +9,10 @@ on:
 jobs:
   update-data:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: write  # This ensures the action can push changes to the repo
+
     steps:
       # Step 1: Check out the repository
       - name: Check out repository

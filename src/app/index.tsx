@@ -50,7 +50,7 @@ const App = () => {
           showMonthDropdown={true}
           showYearDropdown={true}
           showPopperArrow={true}  // Display the arrow in the date picker popper
-          minDate={new Date(Date.UTC(2017, 0, 1))}
+          minDate={new Date(Date.UTC(2022, 0, 1))}
           maxDate={getEndDate()}
           onChange={
             (x) => x && setSd(dateToSettlementDate(x))
