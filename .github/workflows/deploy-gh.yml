@@ -6,6 +6,15 @@ on:
 
 jobs:
   build:
+
+    permissions:
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -19,25 +28,9 @@ jobs:
         run: npm install
 
       - name: Export Expo Web
-        run: npx expo export --output-dir=web-build  # Ensure this is the right output directory
+        run: npx expo -p web 
 
-      - name: Upload build artifacts
-        uses: actions/upload-pages-artifact@v1
-        with:
-          path: web-build  # Ensure this is the correct output directory
-          name: github-pages  # This needs to match the deploy action's expectations
-
-  deploy:
-    needs: build
-    permissions:
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
-    runs-on: ubuntu-latest
-    steps:
       - name: Deploy to GitHub Pages
-        id: deployment
         uses: actions/deploy-pages@v4
+        with:
+          path: dist
