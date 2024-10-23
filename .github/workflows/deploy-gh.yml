@@ -6,7 +6,6 @@ on:
 
 jobs:
   build:
-
     permissions:
       pages: write
       id-token: write
@@ -30,7 +29,8 @@ jobs:
       - name: Export Expo Web
         run: npx expo -p web 
 
-      - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v4
-        with:
-          path: dist
+      - name: install to GitHub Pages
+        run: npm install gh-pages
+          
+      - name: Deploy to github pages
+        run: npx gh-pages -d dist
