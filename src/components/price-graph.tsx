@@ -11,6 +11,7 @@ import {
   Legend,
 } from 'chart.js';
 import { LabelledPrice } from '../utils';
+import { View } from 'react-native';
 
 // Register the necessary components for the chart
 ChartJS.register(
@@ -56,9 +57,11 @@ const PriceGraph: React.FC<{ data: LabelledPrice[] }> = (p) => {
     },
   };
 
-  return <Line data={data} 
-  options={options}
-  />;
+  return (
+    <View style={{ maxHeight: 350 }}>
+      <Line data={data} options={options} />
+    </View>
+  );
 };
 
 export default PriceGraph;
