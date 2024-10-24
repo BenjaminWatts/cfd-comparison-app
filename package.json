@@ -19,7 +19,7 @@
   "dependencies": {
     "@expo/vector-icons": "^14.0.2",
     "@react-navigation/native": "^6.0.2",
-    "cfd-comparison": "^1.0.3",
+    "cfd-comparison": "^1.0.5",
     "date-fns": "^4.1.0",
     "expo": "~51.0.28",
     "expo-constants": "~16.0.2",
