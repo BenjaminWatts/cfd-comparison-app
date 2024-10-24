@@ -17,7 +17,7 @@ const getDateIso = (sd: SettlementDate): string => {
 
 const getOutputFp = (sd: SettlementDate) => `${outputDir}/${getDateIso(sd)}.json`
 
-const START_DATE = new Date(Date.UTC(2022, 0, 1))
+const START_DATE = new Date(Date.UTC(2024, 9, 1))
 const LAG_DAYS = 7 // only try getting data up to x days in the past from now
 
 const getSettlementDates = () => {
@@ -41,9 +41,11 @@ const downloadSd = async (
 export const checkUpdateAll = async () => {
     const dates = getSettlementDates();
     const sds = dates.map(dateToSd)
+    let lastSuccessful: SettlementDate | null = null;
     for (const sd of sds) {
         try {
             await downloadSd(sd)
+            lastSuccessful = sd;
         } catch(e: any) {
             console.error(sd, e.message)
         }
