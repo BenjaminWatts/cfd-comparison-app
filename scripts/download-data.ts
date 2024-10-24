@@ -38,6 +38,8 @@ const downloadSd = async (
     fs.writeFileSync(fp, JSON.stringify(data, null, 2))
 }
 
+const writeLastSuccessful = (sd: SettlementDate) => fs.writeFileSync(`${outputDir}/last-successful.json`, JSON.stringify(sd, null, 2))
+
 export const checkUpdateAll = async () => {
     const dates = getSettlementDates();
     const sds = dates.map(dateToSd)
@@ -50,6 +52,7 @@ export const checkUpdateAll = async () => {
             console.error(sd, e.message)
         }
     }
+    if(lastSuccessful) writeLastSuccessful(lastSuccessful)
 
 }
 
