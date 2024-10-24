@@ -17,7 +17,7 @@ const getDateIso = (sd: SettlementDate): string => {
 
 const getOutputFp = (sd: SettlementDate) => `${outputDir}/${getDateIso(sd)}.json`
 
-const START_DATE = new Date(Date.UTC(2023, 0, 1))
+const START_DATE = new Date(Date.UTC(2024, 0, 1))
 const LAG_DAYS = 7 // only try getting data up to x days in the past from now
 
 const getSettlementDates = () => {
@@ -56,7 +56,6 @@ export const checkUpdateAll = async () => {
         console.log('Last successful:', lastSuccessful)
         writeLastSuccessful(lastSuccessful)
     }
-
 }
 
 checkUpdateAll()
