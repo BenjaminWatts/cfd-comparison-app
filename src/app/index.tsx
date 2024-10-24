@@ -1,9 +1,9 @@
 import React from 'react'
 import {ActivityIndicator, View, Text, Button} from 'react-native'
-import { useSettlementDatePrices } from '../hooks'
+import { useLastSuccessful, useSettlementDatePrices } from '../hooks'
 import { SettlementDate } from 'cfd-comparison/dist/models'
 import PriceList from '../components/price-list'
-import { dateToSettlementDate, getEndDate, getInitialSd, toDate, tomorrow, yesterday } from '../utils'
+import { dateToSettlementDate, getEndDate, toDate, tomorrow, yesterday } from '../utils'
 import PriceGraph from '../components/price-graph'
 import DatePicker from 'react-datepicker'; // Import the DatePicker
 import 'react-datepicker/dist/react-datepicker.css'; // Import the DatePicker CSS
@@ -11,10 +11,18 @@ import { GestureHandlerRootView, PanGestureHandler } from 'react-native-gesture-
 import '../index.css'
 
 const App = () => {
-  const [sd, setSd] = React.useState<SettlementDate>(getInitialSd())
+  
+  const lastSuccessful = useLastSuccessful()
+  const [sd, setSd] = React.useState<SettlementDate>()
+  React.useEffect(() => {
+    if(lastSuccessful.sd && !sd) setSd(lastSuccessful.sd)
+  }, [lastSuccessful.sd])
+
   const { data, loading, error } = useSettlementDatePrices(sd)
-  const nextDay = () => setSd(yesterday(sd))
-  const prevDay = () => setSd(tomorrow(sd))
+
+  const nextDay = () => sd && setSd(yesterday(sd))
+  const prevDay = () => sd && setSd(tomorrow(sd))
+
   return (
     <PanGestureHandler
       onGestureEvent={({ nativeEvent }) => {
@@ -44,7 +52,7 @@ const App = () => {
         backgroundColor: 'lightgrey'
       }}>
         <Button title='<<' onPress={nextDay} />
-        <DatePicker
+       {sd &&  <DatePicker
           selected={toDate(sd)}
           dateFormat={'dd MMMM yyyy'}
           showMonthDropdown={true}
@@ -55,7 +63,7 @@ const App = () => {
           onChange={
             (x) => x && setSd(dateToSettlementDate(x))
           }
-        />
+        />}
         <Button title='>>' onPress={prevDay} />
       </View>
 

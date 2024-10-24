@@ -2,7 +2,7 @@ import fs from 'fs'
 import { getSettlementDate } from "cfd-comparison/dist/index"
 import {type SettlementDate} from "cfd-comparison/dist/models"
 
-const outputDir = 'public/data/settlement-dates'
+const outputDir = 'public/data'
 
 const dateToSd = (date: Date): SettlementDate => ({
     year: date.getUTCFullYear(),
@@ -52,7 +52,10 @@ export const checkUpdateAll = async () => {
             console.error(sd, e.message)
         }
     }
-    if(lastSuccessful) writeLastSuccessful(lastSuccessful)
+    if(lastSuccessful) {
+        console.log('Last successful:', lastSuccessful)
+        writeLastSuccessful(lastSuccessful)
+    }
 
 }
 

@@ -21,7 +21,7 @@ const fetchSd = (
     .then(augmentLabels)
 
 export const useSettlementDatePrices = (
-    sd: SettlementDate
+    sd?: SettlementDate
 ) => {
     const [data, setData] = React.useState<LabelledPrice[] | null>(null)
     const [loading, setLoading] = React.useState(true)
@@ -29,6 +29,7 @@ export const useSettlementDatePrices = (
     React.useEffect(() => {
         setLoading(true)
         setError(null)
+        if(!sd) return
         fetchSd(sd)
             .then(setData).then(() => setLoading(false))
             .catch(e => {
@@ -37,4 +38,18 @@ export const useSettlementDatePrices = (
             })
     }, [sd])
     return { data, loading, error }
+}
+
+export const useLastSuccessful = () => {
+    const [sd, setSd] = React.useState<SettlementDate | null>(null)
+    const [loading, setLoading] = React.useState(true)
+    React.useEffect(() => {
+        if(!sd) {
+            fetch(`${DOMAIN}/data/settlement-dates/last-successful.json`)
+                .then(res => res.json() as Promise<SettlementDate>)
+                .then(setSd)
+                .then(() => setLoading(false))
+        }
+    }, [])
+    return {sd, loading}
 }
