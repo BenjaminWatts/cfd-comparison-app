@@ -2,7 +2,7 @@ import fs from 'fs'
 import { getSettlementDate } from "cfd-comparison/dist/index"
 import {type SettlementDate} from "cfd-comparison/dist/models"
 
-const outputDir = 'public/data'
+const outputDir = 'public/data/settlement-dates'
 
 const dateToSd = (date: Date): SettlementDate => ({
     year: date.getUTCFullYear(),
@@ -17,7 +17,7 @@ const getDateIso = (sd: SettlementDate): string => {
 
 const getOutputFp = (sd: SettlementDate) => `${outputDir}/${getDateIso(sd)}.json`
 
-const START_DATE = new Date(Date.UTC(2024, 9, 1))
+const START_DATE = new Date(Date.UTC(2024, 8, 1))
 const LAG_DAYS = 7 // only try getting data up to x days in the past from now
 
 const getSettlementDates = () => {
