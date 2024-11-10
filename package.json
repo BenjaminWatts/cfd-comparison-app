@@ -11,7 +11,8 @@
     "test": "jest --watchAll",
     "lint": "expo lint",
     "download": "ts-node-dev scripts/download-data.ts --ignore-watch",
-    "build:web": "npx expo export -p web --output-dir docs"
+    "build:web": "npx expo export -p web",
+    "deploy": "gh-pages -t -d dist"
   },
   "jest": {
     "preset": "jest-expo"

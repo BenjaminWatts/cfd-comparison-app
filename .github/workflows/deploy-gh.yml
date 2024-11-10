@@ -33,7 +33,7 @@ jobs:
         run: npm run download
 
       - name: Build dist
-        run: npx expo export -p web --output-dir docs
+        run: npx expo export -p web 
 
       # Step 5: Commit and push changes if any
       - name: Commit changes
@@ -49,7 +49,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: main
 
-      # - name: Deploy 🚀
-      #   uses: JamesIves/github-pages-deploy-action@v4
-      #   with:
-      #     folder: dist
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: dist
