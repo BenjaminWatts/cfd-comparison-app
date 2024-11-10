@@ -33,7 +33,7 @@ jobs:
         run: npm run download
 
       - name: Build dist
-        run: npx expo export -p web 
+        run: npx expo export -p web --output-dir docs
 
       # Step 5: Commit and push changes if any
       - name: Commit changes
