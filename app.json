@@ -53,8 +53,7 @@
       "expo-router"
     ],
     "experiments": {
-      "typedRoutes": true,
-      "baseUrl": "/cfd-comparison-app"
+      "typedRoutes": true
     }
   }
 }
